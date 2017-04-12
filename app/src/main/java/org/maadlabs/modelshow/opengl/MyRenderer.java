@@ -29,6 +29,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 
+        mTriangle.initProgram();
     }
 
     @Override

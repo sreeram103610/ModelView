@@ -22,17 +22,15 @@ public class Triangle {
 
     private static final int BUFFER_CAPACITY = 32;
     private int mProgram;
-    private float[] mVertices;
     private Context mContext;
     FloatBuffer mBuffer;
 
     public Triangle(Context context) {
 
         mContext = context;
-        initProgram();
     }
 
-    private void initProgram() {
+    public void initProgram() {
 
         int vertexShader = Utils.createShader(mContext, GLES30.GL_VERTEX_SHADER, R.raw.basic_vertex_shader);
         int fragmentShader = Utils.createShader(mContext, GLES30.GL_FRAGMENT_SHADER, R.raw.basic_fragment_shader);
@@ -42,12 +40,14 @@ public class Triangle {
             return;
         GLES30.glBindAttribLocation(mProgram, 0, "vPosition");
         GLES30.glEnableVertexAttribArray(0);
-        GLES30.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        GLES30.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public void draw(float[] vertices, int width, int height) {
-        mBuffer = ByteBuffer.allocate(4 * mVertices.length).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        mBuffer.put(vertices).position(0);
+        if (mBuffer == null) {
+            mBuffer = ByteBuffer.allocateDirect(4 * vertices.length).order(ByteOrder.nativeOrder()).asFloatBuffer();
+            mBuffer.put(vertices).position(0);
+        }
         draw(width, height);
     }
 

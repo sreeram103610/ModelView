@@ -1,6 +1,7 @@
 package org.maadlabs.modelshow;
 
 import android.app.ActivityManager;
+import android.app.NativeActivity;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
@@ -10,7 +11,7 @@ import android.os.Bundle;
 
 import org.maadlabs.modelshow.opengl.MyRenderer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NativeActivity {
 
     GLSurfaceView mGLSurfaceView;
     MyRenderer mRenderer;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         float[] vertices = {0.0f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f};
+
 
         if (isGLVersionSupported() || Build.FINGERPRINT.startsWith("generic")) {
             mGLSurfaceView = new GLSurfaceView(this);
